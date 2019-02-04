@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<components xmlns="http://schemas.haulmont.com/cuba/components.xsd">
+    <component>
+        <name>stepper</name>
+        <componentLoader>com.company.demo.web.gui.xml.layout.loaders.StepperLoader</componentLoader>
+        <class>com.company.demo.web.gui.components.WebStepper</class>
+    </component>
+</components>
