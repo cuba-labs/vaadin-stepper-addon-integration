@@ -1,12 +1,15 @@
 package com.company.demo.web.gui.components;
 
-import com.haulmont.cuba.web.gui.components.WebAbstractField;
+import com.haulmont.cuba.web.gui.components.WebV8AbstractField;
 import org.vaadin.risto.stepper.IntStepper;
 
-// note that WebStepper should extend WebAbstractField
-public class WebStepper extends WebAbstractField<IntStepper> implements Stepper {
+// note that WebStepper should extend WebV8AbstractField
+public class WebStepper extends WebV8AbstractField<IntStepper, Integer, Integer> implements Stepper {
+
     public WebStepper() {
         this.component = new org.vaadin.risto.stepper.IntStepper();
+
+        attachValueChangeListener(component);
     }
 
     @Override

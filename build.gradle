@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.10.7'
+    ext.cubaVersion = '7.0.0'
     repositories {
         
         maven {
@@ -28,7 +28,6 @@ def webThemesModule = project(":${modulePrefix}-web-themes")
 def servletApi = 'javax.servlet:javax.servlet-api:3.1.0'
 
 
-apply(plugin: 'idea')
 apply(plugin: 'cuba')
 
 cuba {
@@ -52,7 +51,6 @@ def hsql = 'org.hsqldb:hsqldb:2.2.9'
 configure([globalModule, coreModule, webModule, webToolkitModule]) {
     apply(plugin: 'java')
     apply(plugin: 'maven')
-    apply(plugin: 'idea')
     apply(plugin: 'cuba')
 
     dependencies {
@@ -70,6 +68,12 @@ configure([globalModule, coreModule, webModule, webToolkitModule]) {
 }
 
 configure(globalModule) {
+    dependencies {
+        if (!JavaVersion.current().isJava8()) {
+            runtime('javax.xml.bind:jaxb-api:2.3.1')
+            runtime('org.glassfish.jaxb:jaxb-runtime:2.3.1')
+        }
+    }
     entitiesEnhancing {
         main {
             enabled = true
@@ -88,7 +92,7 @@ configure(coreModule) {
 
     dependencies {
         compile(globalModule)
-        provided(servletApi)
+        compileOnly(servletApi)
         jdbc(hsql)
         testRuntime(hsql)
 
@@ -133,9 +137,9 @@ configure(webModule) {
     }
 
     dependencies {
-        provided(servletApi)
+        compileOnly(servletApi)
         compile(globalModule)
-        compile('org.vaadin.addons:stepper:2.2.2')
+        compile('org.vaadin.addons:stepper:2.4.0')
 
     }
 
@@ -228,25 +232,18 @@ configure(webToolkitModule) {
         widgetSetClass = 'com.company.demo.web.toolkit.ui.AppWidgetSet'
     }
 
-    task webArchive(dependsOn: buildWidgetSet, type: Zip) {
+    task webArchive(dependsOn: buildWidgetSet, type: Jar) {
         from file("$buildDir/web")
-        classifier = 'web'
+        classifier = 'client'
     }
 
     artifacts {
         archives webArchive
     }
 
-    task deploy(dependsOn: buildWidgetSet) {
-        doLast {
-            delete {
-                "$cuba.tomcat.dir/webapps/${modulePrefix}/VAADIN/widgetsets"
-            }
-            copy {
-                from "$buildDir/web"
-                into "$cuba.tomcat.dir/webapps/${modulePrefix}"
-            }
-        }
+    task deploy(dependsOn: webArchive, type: Copy) {
+        from webArchive
+        into "$cuba.tomcat.dir/webapps/${modulePrefix}/WEB-INF/lib"
     }
 }
 
@@ -268,6 +265,3 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy", ":${modulePrefi
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.3.1'
-}

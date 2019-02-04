@@ -6,7 +6,7 @@ import com.haulmont.cuba.gui.xml.layout.loaders.AbstractFieldLoader;
 public class StepperLoader extends AbstractFieldLoader<Stepper> {
     @Override
     public void createComponent() {
-        resultComponent = factory.createComponent(Stepper.class);
+        resultComponent = factory.create(Stepper.class);
         loadId(resultComponent, element);
     }
 

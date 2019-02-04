@@ -3,7 +3,7 @@ package com.company.demo.web.gui.components;
 import com.haulmont.cuba.gui.components.Field;
 
 // note that Stepper should extend Field
-public interface Stepper extends Field {
+public interface Stepper extends Field<Integer> {
 
     String NAME = "stepper";
 
