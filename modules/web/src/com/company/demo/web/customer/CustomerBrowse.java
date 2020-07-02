@@ -1,6 +1,11 @@
 package com.company.demo.web.customer;
 
-import com.haulmont.cuba.gui.components.AbstractLookup;
+import com.company.demo.entity.Customer;
+import com.haulmont.cuba.gui.screen.*;
 
-public class CustomerBrowse extends AbstractLookup {
+@UiController("demo$Customer.browse")
+@UiDescriptor("customer-browse.xml")
+@LookupComponent("customersTable")
+@LoadDataBeforeShow
+public class CustomerBrowse extends StandardLookup<Customer> {
 }

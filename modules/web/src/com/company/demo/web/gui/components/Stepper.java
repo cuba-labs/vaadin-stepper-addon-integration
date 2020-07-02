@@ -15,7 +15,7 @@ import javax.validation.constraints.Positive;
         xmlnsAlias = "app",
         icon = "com/company/demo/web/gui/components/icons/stepper.svg")
 @StudioProperties(properties = {
-        @StudioProperty(name = "datasource", type = PropertyType.DATASOURCE_REF),
+        @StudioProperty(name = "dataContainer", type = PropertyType.DATACONTAINER_REF),
         @StudioProperty(name = "property", type = PropertyType.PROPERTY_PATH_REF, options = "int"),
 })
 public interface Stepper extends Field<Integer> {

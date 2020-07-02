@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:app="http://schemas.company.com/demo/0.1/ui-component.xsd"
         caption="msg://editorCaption"
-        class="com.company.demo.web.customer.CustomerEdit"
-        datasource="customerDs"
         focusComponent="fieldGroup"
         messagesPack="com.company.demo.web.customer">
-    <dsContext>
-        <datasource id="customerDs"
-                    class="com.company.demo.entity.Customer"
-                    view="_local"/>
-    </dsContext>
+    <data>
+        <instance id="customerDc"
+                  class="com.company.demo.entity.Customer"
+                  view="_local">
+            <loader id="customerDl"/>
+        </instance>
+    </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions" spacing="true">
-        <fieldGroup id="fieldGroup" datasource="customerDs">
+    <layout expand="editActions" spacing="true">
+        <form id="fieldGroup" dataContainer="customerDc">
             <column width="250px">
-                <field property="name"/>
-                <field id="score">
-                    <app:stepper id="stepper" caption="Score"
-                                 datasource="customerDs" property="score"
-                                 minValue="1" maxValue="20"/>
-                </field>
+                <textField property="name"/>
+                <app:stepper id="score" caption="Score"
+                             dataContainer="customerDc"
+                             property="score"/>
             </column>
-        </fieldGroup>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+        </form>
+        <hbox id="editActions"
+              spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
     </layout>
 </window>
