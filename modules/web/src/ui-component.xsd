@@ -10,7 +10,7 @@
             <xs:attribute name="caption" type="xs:string"/>
             <xs:attribute name="width" type="xs:string"/>
             <xs:attribute name="height" type="xs:string"/>
-            <xs:attribute name="datasource" type="xs:string"/>
+            <xs:attribute name="dataContainer" type="xs:string"/>
             <xs:attribute name="property" type="xs:string"/>
             <xs:attribute name="manualInput" type="xs:boolean"/>
             <xs:attribute name="mouseWheel" type="xs:boolean"/>
