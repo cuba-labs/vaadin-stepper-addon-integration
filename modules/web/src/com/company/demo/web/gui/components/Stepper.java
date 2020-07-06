@@ -1,10 +1,7 @@
 package com.company.demo.web.gui.components;
 
 import com.haulmont.cuba.gui.components.Field;
-import com.haulmont.cuba.gui.meta.PropertyType;
-import com.haulmont.cuba.gui.meta.StudioComponent;
-import com.haulmont.cuba.gui.meta.StudioProperties;
-import com.haulmont.cuba.gui.meta.StudioProperty;
+import com.haulmont.cuba.gui.meta.*;
 
 import javax.validation.constraints.Positive;
 
@@ -13,11 +10,14 @@ import javax.validation.constraints.Positive;
         unsupportedProperties = {"description", "icon", "responsive"},
         xmlns = "http://schemas.company.com/demo/0.1/ui-component.xsd",
         xmlnsAlias = "app",
-        icon = "com/company/demo/web/gui/components/icons/stepper.svg")
+        icon = "com/company/demo/web/gui/components/icons/stepper.svg",
+        canvasBehaviour = CanvasBehaviour.INPUT_FIELD)
 @StudioProperties(properties = {
         @StudioProperty(name = "dataContainer", type = PropertyType.DATACONTAINER_REF),
         @StudioProperty(name = "property", type = PropertyType.PROPERTY_PATH_REF, options = "int"),
-})
+}, groups = @PropertiesGroup(
+        properties = {"dataContainer", "property"}, constraint = PropertiesConstraint.ALL_OR_NOTHING
+))
 public interface Stepper extends Field<Integer> {
 
     String NAME = "stepper";
